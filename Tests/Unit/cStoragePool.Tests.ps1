@@ -8,7 +8,7 @@ $Splat = @{
     ErrorAction = 'Stop'
 }
 $DSCResourceModuleFile = Get-Item -Path (Join-Path @Splat)
-
+Write-Host ($PSVersionTable.PSVersion)
 if (Get-Module -Name $DSCResourceName)
 {
     Remove-Module -Name $DSCResourceName
