@@ -17,13 +17,14 @@ if (!(Get-Module -Name "Pester"))
 {
     Copy-Item -Path "$PSScriptRoot\..\..\Pester" -Destination "C:\PSModule\WindowsPowerShell\Modules\" -Recurse -Force
 }
-Import-Module -Name "C:\PSModule\WindowsPowerShell\Modules\Pester\3.3.5\Pester.psd1" -Force
-Import-Module -Name $DSCResourceModuleFile.FullName -Force
+
+
 if (!($env:PSModulePath -like "*C:\PSModule\*"))
 {
 $env:PSModulePath += ";C:\PSModule\"
 }
-
+Import-Module -Name $DSCResourceModuleFile.FullName -Force
+Import-Module -Name Pester -Force
 
 $ModuleRoot = "C:\PSModule\WindowsPowerShell\Modules\$DSCModuleName"
 
