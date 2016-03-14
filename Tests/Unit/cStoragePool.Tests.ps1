@@ -13,28 +13,9 @@ if (Get-Module -Name $DSCResourceName)
 {
     Remove-Module -Name $DSCResourceName
 }
-if (!(Get-Module -Name "Pester"))
-{
-    Copy-Item -Path "$PSScriptRoot\..\..\Pester" -Destination "C:\PSModule\" -Recurse -Force
-}
-
-
-if (!($env:PSModulePath -like "*C:\PSModule\*"))
-{
-$env:PSModulePath += ";C:\PSModule\"
-}
 
 Import-Module -Name $DSCResourceModuleFile.FullName -Force
-Import-Module -Name "C:\a\1\s\Pester\3.3.5\pester.psm1" -Force
-
-$ModuleRoot = "C:\PSModule\$DSCModuleName"
-
-if (-not (Test-Path -Path $ModuleRoot -PathType Container))
-{
-    New-Item -Path $ModuleRoot -ItemType Directory | Out-Null
-}
-
-Copy-Item -Path "$PSScriptRoot\..\..\*" -Destination $ModuleRoot -Recurse -Force -Exclude '.git'
+Import-Module -Name "$env:System_DefaultWorkingDirectory\Pester\3.3.5\pester.psm1" -Force
 
 InModuleScope -ModuleName $DSCResourceName -ScriptBlock {
 
