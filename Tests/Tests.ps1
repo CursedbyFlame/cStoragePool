@@ -3,7 +3,7 @@ $DSCResourceName = 'cStoragePool'
 
 $Splat = @{
     Path = $PSScriptRoot
-    ChildPath = "..\..\DSCResources\$DSCResourceName\$DSCResourceName.psm1"
+    ChildPath = "..\DSCResources\$DSCResourceName\$DSCResourceName.psm1"
     Resolve = $true
     ErrorAction = 'Stop'
 }
