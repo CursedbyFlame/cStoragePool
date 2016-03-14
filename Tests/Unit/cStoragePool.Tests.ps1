@@ -151,7 +151,7 @@ InModuleScope -ModuleName $DSCResourceName -ScriptBlock {
                 SizeOfDisks = 100GB
                 Ensure = 'Present'
             }
-            $MockPhysicalDisk = [ciminstance]::new("MSFT_PhysicalDisk")
+            $MockPhysicalDisk = New-CimInstance -ClassName MSFT_PhysicalDisk -ClientOnly
             Mock -CommandName Get-StorageSubSystem -MockWith {
                 [PSCustomObject]@{UniqueID = '{00000000-0000-0000-0000-000000000000}:SS'}
             }
@@ -196,8 +196,8 @@ InModuleScope -ModuleName $DSCResourceName -ScriptBlock {
                 ProvisioningType = "Fixed"
                 ResiliencySettingName = "Simple"
             }
-            $MockPhysicalDisk = [ciminstance]::new("MSFT_PhysicalDisk")
-            $MockVirtualDisk = [ciminstance]::new("MSFT_VirtualDisk")
+            $MockPhysicalDisk = New-CimInstance -ClassName MSFT_PhysicalDisk -ClientOnly
+            $MockVirtualDisk = New-CimInstance -ClassName MSFT_VirtualDisk -ClientOnly
             Mock -CommandName Get-StorageSubSystem -MockWith {
                 [PSCustomObject]@{UniqueID = '{00000000-0000-0000-0000-000000000000}:SS'}
             }
@@ -270,8 +270,8 @@ InModuleScope -ModuleName $DSCResourceName -ScriptBlock {
             }
             $MockArray += $MockVD1
             $MockArray += $MockVD2
-            $MockPhysicalDisk = [ciminstance]::new("MSFT_PhysicalDisk")
-            $MockVirtualDisk = [ciminstance]::new("MSFT_VirtualDisk")
+            $MockPhysicalDisk = New-CimInstance -ClassName MSFT_PhysicalDisk -ClientOnly
+            $MockVirtualDisk = New-CimInstance -ClassName MSFT_VirtualDisk -ClientOnly
             Mock -CommandName Get-StorageSubSystem -MockWith {
                 [PSCustomObject]@{UniqueID = '{00000000-0000-0000-0000-000000000000}:SS'}
             }
@@ -358,8 +358,8 @@ InModuleScope -ModuleName $DSCResourceName -ScriptBlock {
             $MockArray += $MockVD1
             $MockArray += $MockVD2
             $MockArray += $MockVD3
-            $MockPhysicalDisk = [ciminstance]::new("MSFT_PhysicalDisk")
-            $MockVirtualDisk = [ciminstance]::new("MSFT_VirtualDisk")
+            $MockPhysicalDisk = New-CimInstance -ClassName MSFT_PhysicalDisk -ClientOnly
+            $MockVirtualDisk = New-CimInstance -ClassName MSFT_VirtualDisk -ClientOnly
             $MockStoragePool = New-CimInstance -ClassName MSFT_StoragePool -Property @{
                 Size = (($MockParameters.SizeOfDisks * $MockParameters.NumberOfDisksInPool)*0.99)
                 AllocatedSize = 0.5GB
@@ -442,7 +442,7 @@ InModuleScope -ModuleName $DSCResourceName -ScriptBlock {
                 ProvisioningType = "Fixed"
                 ResiliencySettingName = "Simple"
             }
-            $MockPhysicalDisk = [ciminstance]::new("MSFT_PhysicalDisk")
+            $MockPhysicalDisk = New-CimInstance -ClassName MSFT_PhysicalDisk -ClientOnly
             $Script:VDPartsCount = New-Object 'System.Object[]' -ArgumentList 1
             $Script:VDPartsCount[0] = 2
             $Script:FormatOptions = New-Object 'System.Object[]' -ArgumentList 1
@@ -577,7 +577,7 @@ InModuleScope -ModuleName $DSCResourceName -ScriptBlock {
             $MockArray = New-Object 'System.Object[]' -ArgumentList 2
             $MockArray[0] = $MockVD1
             $MockArray[1] = $MockVD2
-            $MockPhysicalDisk = [ciminstance]::new("MSFT_PhysicalDisk")
+            $MockPhysicalDisk = New-CimInstance -ClassName MSFT_PhysicalDisk -ClientOnly
             $Script:VDPartsCount = New-Object 'System.Object[]' -ArgumentList 2
             $Script:VDPartsCount[0] = 2
             $Script:VDPartsCount[1] = 1
@@ -746,7 +746,7 @@ InModuleScope -ModuleName $DSCResourceName -ScriptBlock {
             $MockArray[0] = $MockVD1
             $MockArray[1] = $MockVD2
             $MockArray[2] = $MockVD3
-            $MockPhysicalDisk = [ciminstance]::new("MSFT_PhysicalDisk")
+            $MockPhysicalDisk = New-CimInstance -ClassName MSFT_PhysicalDisk -ClientOnly
             $Script:VDPartsCount = New-Object 'System.Object[]' -ArgumentList 3
             $Script:VDPartsCount[0] = 2
             $Script:VDPartsCount[1] = 1
