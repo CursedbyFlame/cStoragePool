@@ -25,7 +25,7 @@ $env:PSModulePath += ";C:\PSModule\"
 }
 
 Import-Module -Name $DSCResourceModuleFile.FullName -Force
-Import-Module -Name Pester -Force
+Import-Module -Name "C:\PSModule\Pester\3.3.5\pester.psm1" -Force
 
 $ModuleRoot = "C:\PSModule\$DSCModuleName"
 
