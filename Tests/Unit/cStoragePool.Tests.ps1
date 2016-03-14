@@ -19,7 +19,7 @@ if (!($env:PSModulePath -like "*C:\PSModule\*"))
 {
 $env:PSModulePath += ";C:\PSModule\"
 }
-$ModuleRoot = "E:\PSModule\WindowsPowerShell\Modules\$DSCModuleName"
+$ModuleRoot = "C:\PSModule\WindowsPowerShell\Modules\$DSCModuleName"
 
 if (-not (Test-Path -Path $ModuleRoot -PathType Container))
 {
