@@ -61,7 +61,7 @@ InModuleScope -ModuleName $DSCResourceName -ScriptBlock {
                 $Result.StoragePoolName | Should Be 'MockStoragePool'
                 ($Result.VDsNames -contains 'MockVD1' -and $Result.VDsNames -contains 'MockVD2') | Should Be $true
                 $Result.NumberOfDisksInPool | Should Be 4
-                $Result.SizeOfDisks | Should Be 100
+                $Result.SizeOfDisks | Should Be 98
                 ($Result.PartitionsInPool -contains 'F' -and $Result.PartitionsInPool -contains 'J' -and $Result.PartitionsInPool -contains 'H') | Should Be $true
             }
         }
