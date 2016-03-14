@@ -15,7 +15,7 @@ if (Get-Module -Name $DSCResourceName)
 }
 if (!(Get-Module -Name "Pester"))
 {
-    Copy-Item -Path "$PSScriptRoot\..\..\Pester" -Destination "C:\PSModule\WindowsPowerShell\Modules\" -Recurse -Force
+    Copy-Item -Path "$PSScriptRoot\..\..\Pester" -Destination "C:\PSModule\" -Recurse -Force
 }
 
 
@@ -23,11 +23,11 @@ if (!($env:PSModulePath -like "*C:\PSModule\*"))
 {
 $env:PSModulePath += ";C:\PSModule\"
 }
-Write-Host $env:PSModulePath
+
 Import-Module -Name $DSCResourceModuleFile.FullName -Force
 Import-Module -Name Pester -Force
 
-$ModuleRoot = "C:\PSModule\WindowsPowerShell\Modules\$DSCModuleName"
+$ModuleRoot = "C:\PSModule\$DSCModuleName"
 
 if (-not (Test-Path -Path $ModuleRoot -PathType Container))
 {
