@@ -15,7 +15,7 @@ if (Get-Module -Name $DSCResourceName)
 }
 if (!(Get-Module -Name "Pester"))
 {
-    Install-Module -Name "Pester"
+    Copy-Item -Path "$PSScriptRoot\..\..\Pester" -Destination "C:\PSModule\WindowsPowerShell\Modules\" -Recurse -Force
 }
 
 Import-Module -Name $DSCResourceModuleFile.FullName -Force
