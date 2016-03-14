@@ -8,7 +8,7 @@ $Splat = @{
     ErrorAction = 'Stop'
 }
 $DSCResourceModuleFile = Get-Item -Path (Join-Path @Splat)
-Write-Host ($PSVersionTable.PSVersion)
+
 if (Get-Module -Name $DSCResourceName)
 {
     Remove-Module -Name $DSCResourceName
@@ -17,7 +17,7 @@ if (!(Get-Module -Name "Pester"))
 {
     Copy-Item -Path "$PSScriptRoot\..\..\Pester" -Destination "C:\PSModule\WindowsPowerShell\Modules\" -Recurse -Force
 }
-
+Import-Module -Name Pester -Force
 Import-Module -Name $DSCResourceModuleFile.FullName -Force
 if (!($env:PSModulePath -like "*C:\PSModule\*"))
 {
