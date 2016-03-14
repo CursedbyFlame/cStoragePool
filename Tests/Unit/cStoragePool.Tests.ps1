@@ -804,7 +804,7 @@ InModuleScope -ModuleName $DSCResourceName -ScriptBlock {
             }
         }
     }
-
+    #Region helper functions
     Describe "how cStoragePool\Import-VDsFromUnparsedArray parse options and parameters." {
 
         Context "Parsing array of 1 Virtual Disk creation options." {
