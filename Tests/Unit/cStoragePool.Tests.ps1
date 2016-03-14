@@ -1,6 +1,6 @@
 ﻿$DSCModuleName = 'cStoragePool'
 $DSCResourceName = 'cStoragePool'
-
+<#
 $Splat = @{
     Path = $PSScriptRoot
     ChildPath = "..\..\DSCResources\$DSCResourceName\$DSCResourceName.psm1"
@@ -23,7 +23,7 @@ if (-not (Test-Path -Path $ModuleRoot -PathType Container))
     New-Item -Path $ModuleRoot -ItemType Directory | Out-Null
 }
 
-Copy-Item -Path "$PSScriptRoot\..\..\*" -Destination $ModuleRoot -Recurse -Force -Exclude '.git'
+Copy-Item -Path "$PSScriptRoot\..\..\*" -Destination $ModuleRoot -Recurse -Force -Exclude '.git' #>
 
 InModuleScope -ModuleName $DSCResourceName -ScriptBlock {
 
