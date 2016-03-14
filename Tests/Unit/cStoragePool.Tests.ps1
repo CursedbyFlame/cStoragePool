@@ -1,23 +1,4 @@
-﻿$DSCModuleName = 'cStoragePool'
-$DSCResourceName = 'cStoragePool'
-
-$Splat = @{
-    Path = $PSScriptRoot
-    ChildPath = "..\..\DSCResources\$DSCResourceName\$DSCResourceName.psm1"
-    Resolve = $true
-    ErrorAction = 'Stop'
-}
-$DSCResourceModuleFile = Get-Item -Path (Join-Path @Splat)
-
-if (Get-Module -Name $DSCResourceName)
-{
-    Remove-Module -Name $DSCResourceName
-}
-
-Import-Module -Name $DSCResourceModuleFile.FullName -Force
-Import-Module -Name "$env:System_DefaultWorkingDirectory\Pester\3.3.5\pester.psm1" -Force
-
-InModuleScope -ModuleName $DSCResourceName -ScriptBlock {
+﻿InModuleScope -ModuleName $DSCResourceName -ScriptBlock {
 
     Describe 'cStoragePool\Get-TargetResource' {
         $MockParameters = @{
@@ -1281,4 +1262,4 @@ InModuleScope -ModuleName $DSCResourceName -ScriptBlock {
             }
         }
     }
-} -ErrorAction Stop
+}
