@@ -23,6 +23,7 @@ if (!($env:PSModulePath -like "*C:\PSModule\*"))
 {
 $env:PSModulePath += ";C:\PSModule\"
 }
+Write-Host $env:PSModulePath
 Import-Module -Name $DSCResourceModuleFile.FullName -Force
 Import-Module -Name Pester -Force
 
