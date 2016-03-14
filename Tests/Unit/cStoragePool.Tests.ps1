@@ -1,4 +1,7 @@
-﻿InModuleScope -ModuleName $DSCResourceName -ScriptBlock {
+﻿$DSCModuleName = 'cStoragePool'
+$DSCResourceName = 'cStoragePool'
+
+InModuleScope -ModuleName $DSCResourceName -ScriptBlock {
 
     Describe 'cStoragePool\Get-TargetResource' {
         $MockParameters = @{

@@ -20,4 +20,4 @@ if (!(Get-Module -Name Pester))
     Import-Module -Name "$env:System_DefaultWorkingDirectory\Pester\3.3.5\pester.psm1" -Force
 }
 
-Invoke-Pester -Script "$env:System_DefaultWorkingDirectory\tests\unit\cStoragePool.psm1" -EnableExit
+Invoke-Pester -Script "$env:System_DefaultWorkingDirectory\tests\unit\cStoragePool.Tests.ps1" -EnableExit
