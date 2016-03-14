@@ -1281,4 +1281,4 @@ InModuleScope -ModuleName $DSCResourceName -ScriptBlock {
             }
         }
     }
-}
+} -ErrorAction Stop
