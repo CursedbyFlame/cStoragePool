@@ -13,12 +13,18 @@ if (Get-Module -Name $DSCResourceName)
 {
     Remove-Module -Name $DSCResourceName
 }
+if (!(Get-Module -Name "Pester"))
+{
+    Install-Module -Name "Pester"
+}
 
 Import-Module -Name $DSCResourceModuleFile.FullName -Force
 if (!($env:PSModulePath -like "*C:\PSModule\*"))
 {
 $env:PSModulePath += ";C:\PSModule\"
 }
+
+
 $ModuleRoot = "C:\PSModule\WindowsPowerShell\Modules\$DSCModuleName"
 
 if (-not (Test-Path -Path $ModuleRoot -PathType Container))
