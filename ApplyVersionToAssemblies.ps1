@@ -71,7 +71,7 @@ $NewVersion = $VersionData[0]
 Write-Verbose "Version: $NewVersion"
 
 # Apply the version to the assembly property files
-$files = gci $Env:BUILD_SOURCESDIRECTORY -recurse -Include "cStoragePool.psd1","cStoragePool.schema.mof"
+$files = Get-ChildItem -path $Env:BUILD_SOURCESDIRECTORY -recurse -Include "cStoragePool.psd1"
 if($files)
 {
     Write-Verbose "Will apply $NewVersion to $($files.count) files."
