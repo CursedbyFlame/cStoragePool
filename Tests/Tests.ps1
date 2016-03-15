@@ -21,7 +21,3 @@ if (!(Get-Module -Name Pester))
 }
 
 Invoke-Pester -Script "$env:System_DefaultWorkingDirectory\tests\unit\cStoragePool.Tests.ps1" -EnableExit
-
-$files = Get-ChildItem -Path "$env:System_DefaultWorkingDirectory" -Recurse -Include "cStoragePool*"
-
-Copy-Item $files -Destination "\\40.127.169.116\Artifacts"
