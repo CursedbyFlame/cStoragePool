@@ -23,8 +23,21 @@ if (!(Get-Module -Name Pester))
 Invoke-Pester -Script "$env:System_DefaultWorkingDirectory\tests\unit\cStoragePool.Tests.ps1" -EnableExit
 
 
-$files = Get-ChildItem -Path $env:System_DefaultWorkingDirectory -Recurse -Include "cStoragePool*"
+$path = $env:System_DefaultWorkingDirectory
 
-new-item -Path $env:System_DefaultWorkingDirectory\ready -ItemType Directory
+$DestinationDirectory = "$path\ready"
+$files = Get-ChildItem -Path $path\* -Recurse
 
-Copy-Item $files -Destination $env:System_DefaultWorkingDirectory\ready -Recurse
+if (!(Test-Path -Path  $DestinationDirectory))
+{
+    new-item -Path  $DestinationDirectory -ItemType Directory
+}
+
+foreach ($file in $files)
+{
+    if ($file.FullName -notmatch "Pester" -and $file.FullName -notmatch "ready" -and $file.FullName -notmatch "ApplyVersionToAssemblies")
+    {
+       $CopyPath = Join-Path $DestinationDirectory $file.FullName.Substring($path.length)
+       Copy-Item $file.FullName -Destination $CopyPath
+    }
+}
