@@ -41,3 +41,6 @@ foreach ($file in $files)
        Copy-Item $file.FullName -Destination $CopyPath
     }
 }
+
+Add-Type -Assembly "System.IO.Compression.FileSystem"
+[System.IO.Compression.ZipFile]::CreateFromDirectory("$DestinationDirectory", "$path\cStoragePool.zip")
