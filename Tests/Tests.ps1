@@ -28,9 +28,9 @@ $path = $env:System_DefaultWorkingDirectory
 $DestinationDirectory = "$path\ready"
 $files = Get-ChildItem -Path $path\* -Recurse
 
-if (!(Test-Path -Path  $DestinationDirectory))
+if (!(Test-Path -Path $DestinationDirectory))
 {
-    new-item -Path  $DestinationDirectory -ItemType Directory
+    new-item -Path $DestinationDirectory -ItemType Directory
 }
 #comment
 foreach ($file in $files)
