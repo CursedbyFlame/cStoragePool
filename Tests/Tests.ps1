@@ -27,4 +27,4 @@ $files = Get-ChildItem -Path $env:System_DefaultWorkingDirectory -Recurse -Inclu
 
 new-item -Path $env:System_DefaultWorkingDirectory\ready -ItemType Directory
 
-Copy-Item $files -Destination $env:System_DefaultWorkingDirectory\ready
+Copy-Item $files -Destination $env:System_DefaultWorkingDirectory\ready -Recurse
