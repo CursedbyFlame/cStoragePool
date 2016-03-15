@@ -32,7 +32,7 @@ if (!(Test-Path -Path  $DestinationDirectory))
 {
     new-item -Path  $DestinationDirectory -ItemType Directory
 }
-
+#comment
 foreach ($file in $files)
 {
     if ($file.FullName -notmatch "Pester" -and $file.FullName -notmatch "ready" -and $file.FullName -notmatch "ApplyVersionToAssemblies")
