@@ -36,7 +36,7 @@ You need to use the following syntax in here: *VDxPartYSomeOption* = *SomeValue*
 There also important notion on this parameters:
 1. You shouldn't use next parameters of ***New-VirtualDisk*** cmdlet:
   * *StoragePoolFriendlyName*: it is provided by **StoragePoolName** parameter.
-  * *FriendlyName*: it is provided by **VDsNames* parameter.
+  * *FriendlyName*: it is provided by **VDsNames** parameter.
   * *Size* or *UseMaximumSize*: it is provided by **VDSizeDistribution** parameter and dinamically decided
   which parameter to use.
 2. You shouldn't use *DiskNumber* parameter of **New-Partition** cmdlet. It will be added on runtime.
