@@ -1,6 +1,22 @@
 ﻿$DSCModuleName = 'cStoragePool'
 $DSCResourceName = 'cStoragePool'
 
+
+$Splat = @{
+    Path = $PSScriptRoot
+    ChildPath = "..\..\DSCResources\$DSCResourceName\$DSCResourceName.psm1"
+    Resolve = $true
+    ErrorAction = 'Stop'
+}
+$DSCResourceModuleFile = Get-Item -Path (Join-Path @Splat)
+
+if (Get-Module -Name $DSCResourceName)
+{
+    Remove-Module -Name $DSCResourceName
+}
+
+Import-Module -Name $DSCResourceModuleFile.FullName -Force
+
 InModuleScope -ModuleName $DSCResourceName -ScriptBlock {
 # Region main functions.
     Describe 'cStoragePool\Get-TargetResource' {
@@ -845,14 +861,14 @@ InModuleScope -ModuleName $DSCResourceName -ScriptBlock {
                 $Result = Import-VDsFromUnparsedArray @MockParameters
                 for ($i = 0; $i -lt 1; $i++)
                 {
-                    $Result[($i+1)].FriendlyName | Should Be $MockParameters.VDsNames
-                    $Result[($i+1)].StoragePoolFriendlyName | Should Be $MockParameters.StoragePoolName
-                    $Result[($i+1)].InterLeave | Should Be ($MockVDsCreationOptions | where key -eq ("VD"+($i+1)+"InterLeave")).value
-                    $Result[($i+1)].ProvisioningType | Should Be ($MockVDsCreationOptions | where key -eq ("VD"+($i+1)+"ProvisioningType")).value
-                    $Result[($i+1)].ResiliencySettingName | Should Be ($MockVDsCreationOptions | where key -eq ("VD"+($i+1)+"ResiliencySettingName")).value
-                    $Result[($i+1)].NumberOfColumns | Should Be ($MockVDsCreationOptions | where key -eq ("VD"+($i+1)+"NumberOfColumns")).value
+                    $Result.FriendlyName | Should Be $MockParameters.VDsNames
+                    $Result.StoragePoolFriendlyName | Should Be $MockParameters.StoragePoolName
+                    $Result.InterLeave | Should Be ($MockVDsCreationOptions | where key -eq ("VD"+($i+1)+"InterLeave")).value
+                    $Result.ProvisioningType | Should Be ($MockVDsCreationOptions | where key -eq ("VD"+($i+1)+"ProvisioningType")).value
+                    $Result.ResiliencySettingName | Should Be ($MockVDsCreationOptions | where key -eq ("VD"+($i+1)+"ResiliencySettingName")).value
+                    $Result.NumberOfColumns | Should Be ($MockVDsCreationOptions | where key -eq ("VD"+($i+1)+"NumberOfColumns")).value
                 }
-                $Result[1].UseMaximumSize | Should Be $true
+                $Result.UseMaximumSize | Should Be $true
             }
         }
         
@@ -915,15 +931,15 @@ InModuleScope -ModuleName $DSCResourceName -ScriptBlock {
                 $Result = Import-VDsFromUnparsedArray @MockParameters
                 for ($i = 0; $i -lt 2; $i++)
                 {
-                    $Result[($i+2)].FriendlyName | Should Be $MockParameters.VDsNames[$i]
-                    $Result[($i+2)].StoragePoolFriendlyName | Should Be $MockParameters.StoragePoolName
-                    $Result[($i+2)].InterLeave | Should Be ($MockVDsCreationOptions | where key -eq ("VD"+($i+1)+"InterLeave")).value
-                    $Result[($i+2)].ProvisioningType | Should Be ($MockVDsCreationOptions | where key -eq ("VD"+($i+1)+"ProvisioningType")).value
-                    $Result[($i+2)].ResiliencySettingName | Should Be ($MockVDsCreationOptions | where key -eq ("VD"+($i+1)+"ResiliencySettingName")).value
-                    $Result[($i+2)].NumberOfColumns | Should Be ($MockVDsCreationOptions | where key -eq ("VD"+($i+1)+"NumberOfColumns")).value
+                    $Result[($i)].FriendlyName | Should Be $MockParameters.VDsNames[$i]
+                    $Result[($i)].StoragePoolFriendlyName | Should Be $MockParameters.StoragePoolName
+                    $Result[($i)].InterLeave | Should Be ($MockVDsCreationOptions | where key -eq ("VD"+($i+1)+"InterLeave")).value
+                    $Result[($i)].ProvisioningType | Should Be ($MockVDsCreationOptions | where key -eq ("VD"+($i+1)+"ProvisioningType")).value
+                    $Result[($i)].ResiliencySettingName | Should Be ($MockVDsCreationOptions | where key -eq ("VD"+($i+1)+"ResiliencySettingName")).value
+                    $Result[($i)].NumberOfColumns | Should Be ($MockVDsCreationOptions | where key -eq ("VD"+($i+1)+"NumberOfColumns")).value
                 }
-                $Result[2].Size | Should Be 100GB
-                $Result[3].UseMaximumSize | Should Be $true
+                $Result[0].Size | Should Be 100GB
+                $Result[1].UseMaximumSize | Should Be $true
             }
         }
 
@@ -1006,16 +1022,16 @@ InModuleScope -ModuleName $DSCResourceName -ScriptBlock {
                 $Result = Import-VDsFromUnparsedArray @MockParameters
                 for ($i = 0; $i -lt 3; $i++)
                 {
-                    $Result[($i+3)].FriendlyName | Should Be $MockParameters.VDsNames[$i]
-                    $Result[($i+3)].StoragePoolFriendlyName | Should Be $MockParameters.StoragePoolName
-                    $Result[($i+3)].InterLeave | Should Be ($MockVDsCreationOptions | where key -eq ("VD"+($i+1)+"InterLeave")).value
-                    $Result[($i+3)].ProvisioningType | Should Be ($MockVDsCreationOptions | where key -eq ("VD"+($i+1)+"ProvisioningType")).value
-                    $Result[($i+3)].ResiliencySettingName | Should Be ($MockVDsCreationOptions | where key -eq ("VD"+($i+1)+"ResiliencySettingName")).value
-                    $Result[($i+3)].NumberOfColumns | Should Be ($MockVDsCreationOptions | where key -eq ("VD"+($i+1)+"NumberOfColumns")).value
+                    $Result[($i)].FriendlyName | Should Be $MockParameters.VDsNames[$i]
+                    $Result[($i)].StoragePoolFriendlyName | Should Be $MockParameters.StoragePoolName
+                    $Result[($i)].InterLeave | Should Be ($MockVDsCreationOptions | where key -eq ("VD"+($i+1)+"InterLeave")).value
+                    $Result[($i)].ProvisioningType | Should Be ($MockVDsCreationOptions | where key -eq ("VD"+($i+1)+"ProvisioningType")).value
+                    $Result[($i)].ResiliencySettingName | Should Be ($MockVDsCreationOptions | where key -eq ("VD"+($i+1)+"ResiliencySettingName")).value
+                    $Result[($i)].NumberOfColumns | Should Be ($MockVDsCreationOptions | where key -eq ("VD"+($i+1)+"NumberOfColumns")).value
                 }
-                $Result[3].Size | Should Be 130GB
-                $Result[4].Size | Should Be 130GB
-                $Result[5].UseMaximumSize | Should Be $true
+                $Result[0].Size | Should Be 130GB
+                $Result[1].Size | Should Be 130GB
+                $Result[2].UseMaximumSize | Should Be $true
             }
         }
     }
@@ -1073,13 +1089,13 @@ InModuleScope -ModuleName $DSCResourceName -ScriptBlock {
                 {
                     for ($l=0; $l -lt 2; $l++)
                     {
-                        $Result[($i+2)][$l].DriveLetter | Should Be ($MockPartsCreationOptions | where key -eq ("VD"+($i+1)+"Part"+($l+1)+"DriveLetter")).value
-                        $Result[($i+2)][$l].DiskNumber | Should Be 4
+                        $Result[$l].DriveLetter | Should Be ($MockPartsCreationOptions | where key -eq ("VD"+($i+1)+"Part"+($l+1)+"DriveLetter")).value
+                        $Result[$l].DiskNumber | Should Be 4
                         $Script:FormatOptions[$i][$l].NewFileSystemLabel | Should Be ($MockPartsCreationOptions | where key -eq ("VD"+($i+1)+"Part"+($l+1)+"NewFileSystemLabel")).value
                     }
                 }
-                $Result[2][0].Size | Should Be 10GB
-                $Result[2][1].UseMaximumSize | Should Be $true
+                $Result[0].Size | Should Be 10GB
+                $Result[1].UseMaximumSize | Should Be $true
                 $Script:FormatOptions[0][1].FileSystem | Should Be "ReFS"
             }
         }
@@ -1152,14 +1168,14 @@ InModuleScope -ModuleName $DSCResourceName -ScriptBlock {
                 {
                     for ($l=0; $l -lt $Script:VDPartsCount[$i]; $l++)
                     {
-                        $Result[($i+3)][$l].DriveLetter | Should Be ($MockPartsCreationOptions | where key -eq ("VD"+($i+1)+"Part"+($l+1)+"DriveLetter")).value
-                        $Result[($i+3)][$l].DiskNumber | Should Be 4
+                        $Result[($i)][$l].DriveLetter | Should Be ($MockPartsCreationOptions | where key -eq ("VD"+($i+1)+"Part"+($l+1)+"DriveLetter")).value
+                        $Result[($i)][$l].DiskNumber | Should Be 4
                         $Script:FormatOptions[$i][$l].NewFileSystemLabel | Should Be ($MockPartsCreationOptions | where key -eq ("VD"+($i+1)+"Part"+($l+1)+"NewFileSystemLabel")).value
                     }
                 }
-                $Result[3][0].Size | Should Be 10GB
-                $Result[3][1].UseMaximumSize | Should Be $true
-                $Result[4][0].UseMaximumSize | Should Be $true
+                $Result[0][0].Size | Should Be 10GB
+                $Result[0][1].UseMaximumSize | Should Be $true
+                $Result[1][0].UseMaximumSize | Should Be $true
                 $Script:FormatOptions[0][1].FileSystem | Should Be "ReFS"
                 $Script:FormatOptions[1][0].FileSystem | Should Be "exFAT"
             }
@@ -1250,15 +1266,15 @@ InModuleScope -ModuleName $DSCResourceName -ScriptBlock {
                 {
                     for ($l=0; $l -lt $Script:VDPartsCount[$i]; $l++)
                     {
-                        $Result[($i+4)][$l].DriveLetter | Should Be ($MockPartsCreationOptions | where key -eq ("VD"+($i+1)+"Part"+($l+1)+"DriveLetter")).value
-                        $Result[($i+4)][$l].DiskNumber | Should Be 4
+                        $Result[($i)][$l].DriveLetter | Should Be ($MockPartsCreationOptions | where key -eq ("VD"+($i+1)+"Part"+($l+1)+"DriveLetter")).value
+                        $Result[($i)][$l].DiskNumber | Should Be 4
                         $Script:FormatOptions[$i][$l].NewFileSystemLabel | Should Be ($MockPartsCreationOptions | where key -eq ("VD"+($i+1)+"Part"+($l+1)+"NewFileSystemLabel")).value
                     }
                 }
-                $Result[4][0].Size | Should Be 10GB
-                $Result[4][1].UseMaximumSize | Should Be $true
-                $Result[5][0].UseMaximumSize | Should Be $true
-                $Result[6][0].UseMaximumSize | Should Be $true
+                $Result[0][0].Size | Should Be 10GB
+                $Result[0][1].UseMaximumSize | Should Be $true
+                $Result[1][0].UseMaximumSize | Should Be $true
+                $Result[2][0].UseMaximumSize | Should Be $true
                 $Script:FormatOptions[0][1].FileSystem | Should Be "ReFS"
                 $Script:FormatOptions[1][0].FileSystem | Should Be "exFAT"
                 $Script:FormatOptions[2][0].FileSystem | Should Be "NTFS"
