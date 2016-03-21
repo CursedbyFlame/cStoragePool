@@ -2,21 +2,6 @@
 $DSCResourceName = 'cStoragePool'
 
 
-$Splat = @{
-    Path = $PSScriptRoot
-    ChildPath = "..\..\DSCResources\$DSCResourceName\$DSCResourceName.psm1"
-    Resolve = $true
-    ErrorAction = 'Stop'
-}
-$DSCResourceModuleFile = Get-Item -Path (Join-Path @Splat)
-
-if (Get-Module -Name $DSCResourceName)
-{
-    Remove-Module -Name $DSCResourceName
-}
-
-Import-Module -Name $DSCResourceModuleFile.FullName -Force
-
 InModuleScope -ModuleName $DSCResourceName -ScriptBlock {
 # Region main functions.
     Describe 'cStoragePool\Get-TargetResource' {

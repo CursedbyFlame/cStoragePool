@@ -42,3 +42,138 @@ There also important notion on this parameters:
 2. You shouldn't use *DiskNumber* parameter of **New-Partition** cmdlet. It will be added on runtime.
 3. You shouldn't use any parameters of **Format-Volume** cmdlet except: *FileSystem* and *NewFileSystemLabel*.
 This is not implemented by design.
+
+## Versions
+
+### 1.0
+- Initial release with the following resources: 
+  * **cStoragePool**
+  
+# Examples
+
+Showing usage of the resource in different situations.
+```sh
+Configuration Examples
+{
+    Import-DscResource -module cStoragePool
+    node localhost
+    {
+        # Creating single Storage Pool without VDs and Partitions.
+        cStoragePool Example1
+        {
+            StoragePoolName = "ExampleStoragePool"
+            NumberOfDisksInPool = 4
+            SizeOfDisks = 100GB
+            Ensure = 'Present'
+        }
+        # Creating Storage Pool with single VD, but without Partitions on it.        
+        cStoragePool Example2
+        {
+            StoragePoolName = "ExampleStoragePool"
+            VDsNames = "ExampleVD1"
+            VDsCreationOptions = @{
+                VD1InterLeave = 65536
+                VD1NumberOfColumns = 4
+                VD1ProvisioningType = "Fixed"
+                VD1ResiliencySettingName = "Simple"
+            }
+            NumberOfDisksInPool = 4
+            SizeOfDisks = 100GB
+            Ensure = 'Present'
+        }
+        # Creating Storage Pool with single VD and two partitions on it.
+        cStoragePool Example3
+        {
+            StoragePoolName = "ExampleStoragePool"
+            VDsNames = "ExampleVD1"
+            VDsCreationOptions = @{
+                VD1InterLeave = 65536
+                VD1NumberOfColumns = 2
+                VD1ProvisioningType = "Fixed"
+                VD1ResiliencySettingName = "Simple"
+                VD1PartsCount = 2
+            }
+            PartsCreationOptions = @{
+                VD1Part1DriveLetter = "F"
+                VD1Part1Size = 10GB
+                VD1Part1NewFileSystemLabel = "VD1 Part1"
+                VD1Part2DriveLetter = "J"
+                VD1Part2UseMaximumSize = $true
+                VD1Part2NewFileSystemLabel = "VD1 Part2"
+                VD1Part2FileSystem = "ReFS"
+            }
+            NumberOfDisksInPool = 4
+            SizeOfDisks = 100GB
+            Ensure = 'Present'
+        }
+        # Creating Storage Pool with 3 Virtual Disks in it, but without partitions.
+        cStoragePool Example4
+        {
+            StoragePoolName = "ExampleStoragePool"
+            VDsNames = "ExampleVD1", "ExampleVD2", "ExampleVD3"
+            VDsCreationOptions = @{
+                VD1InterLeave = 65536
+                VD1NumberOfColumns = 4
+                VD1ProvisioningType = "Fixed"
+                VD1ResiliencySettingName = "Simple"
+                VD2InterLeave = 32768
+                VD2NumberOfColumns = 4
+                VD2ProvisioningType = "Fixed"
+                VD2ResiliencySettingName = "Simple"
+                VD3InterLeave = 32768
+                VD3NumberOfColumns = 4
+                VD3ProvisioningType = "Fixed"
+                VD3ResiliencySettingName = "Simple"
+            }
+            VDSizeDistribution = 100GB, 100GB
+            NumberOfDisksInPool = 4
+            SizeOfDisks = 100GB
+            Ensure = 'Present'
+        }
+        # Creating Storage Pool with 3 Virtual Disks with partitions.
+        cStoragePool Example5
+        {
+            StoragePoolName = "ExampleStoragePool"
+            VDsNames = "ExampleVD1", "ExampleVD2", "ExampleVD3"
+            VDsCreationOptions = @{
+                VD1InterLeave = 65536
+                VD1NumberOfColumns = 4
+                VD1ProvisioningType = "Fixed"
+                VD1ResiliencySettingName = "Simple"
+                VD1PartsCount = 2
+                VD2InterLeave = 32768
+                VD2NumberOfColumns = 4
+                VD2ProvisioningType = "Fixed"
+                VD2ResiliencySettingName = "Simple"
+                VD2PartsCount = 1
+                VD3InterLeave = 32768
+                VD3NumberOfColumns = 2
+                VD3ProvisioningType = "Fixed"
+                VD3ResiliencySettingName = "Simple"
+                VD3PartsCount = 1
+            }
+            PartsCreationOptions = @{
+                VD1Part1DriveLetter = "F"
+                VD1Part1Size = 10GB
+                VD1Part1NewFileSystemLabel = "VD1 Part1"
+                VD1Part2DriveLetter = "J"
+                VD1Part2UseMaximumSize = $true
+                VD1Part2NewFileSystemLabel = "VD1 Part2"
+                VD1Part2FileSystem = "ReFS"
+                VD2Part1DriveLetter = "E"
+                VD2Part1UseMaximumSize = $true
+                VD2Part1NewFileSystemLabel = "VD2 Part1"
+                VD2Part1FileSystem = "exFAT"
+                VD3Part1DriveLetter = "H"
+                VD3Part1UseMaximumSize = $true
+                VD3Part1NewFileSystemLabel = "VD3 Part1"
+                VD3Part1FileSystem = "NTFS"
+            }
+            NumberOfDisksInPool = 4
+            VDSizeDistribution = 0.33, 0.33, 0.34
+            SizeOfDisks = 100GB
+            Ensure = 'Present'
+        }
+    }
+}
+```
