@@ -29,7 +29,7 @@ if(-not ($Env:BUILD_SOURCESDIRECTORY -and $Env:BUILD_BUILDNUMBER))
     Write-Host '$Env:BUILD_BUILDNUMBER = "Build HelloWorld_0000.00.00.0"'
     exit 1
 }
-
+# Some comment.
 # Make sure path to source code directory is available
 if (-not $Env:BUILD_SOURCESDIRECTORY)
 {
