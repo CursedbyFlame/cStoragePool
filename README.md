@@ -1,6 +1,7 @@
 # cStoragePool
 
 The **cStoragePool** module contains a single DSC resource **cStoragePool**. 
+This module has been writen for specific purpose: creating Storage Pools (which is MS recommendation) on Azure VMs to achieve better performance of storage subsystem.
 And it's designed to create Storage Pools with or without Virtual Disks and Partitions in it.
 
 ## Resources
